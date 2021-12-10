@@ -15,7 +15,6 @@ Feature: Login page
       | user              |               | Password is empty     |
       | admin             |               | Password is empty     |
       |                   |               | Login is empty        |
-    When I click the login button
-    When I wait for "2" second
+
 
 

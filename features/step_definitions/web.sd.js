@@ -12,22 +12,12 @@ When (/^I input login and password$/, async function (table) {
     for (const row of rows) {
         await $("#login").setValue(row.login);
         await $("#password").setValue(row.password);
-        await browser.pause(2000);
         await $("button").click(); 
-        await $("#error`).isDisplayed;
         await expect( await ($("#error").getText())).toEqual(row.message); 
     }
-  //  await browser.pause(2000);
-  //  await $("button").click();
-
-  //  console.log(login);
-  //  console.log(password);
-  
 });
 
 When (/^I click the login button$/, async function () {
-    //console.log(button);
-    //await $(`button=${button}`).click();
     await $("button").click();
     await browser.pause(2000);
 });
@@ -49,8 +39,10 @@ When(/^I expect element: "([^"]*)" (text|value): "([^"]*)"$/, async function (se
         .toEqual(text)
 });
 
-When('I go to {string} menu item', function (item) {
+When('I go to {string} menu item', async function (item) {
     // add implementation here
+    //await $("*=Create user").click()
+    await $("a[href='./formUser.html']").click()
 });
 
 When(/^I fill form:$/, function (formYaml) {
@@ -59,6 +51,9 @@ When(/^I fill form:$/, function (formYaml) {
     // add implementation here
 });
 
-When('I login as: {string}, {string}', function (login, password) {
+When('I login as: {string}, {string}', async function (login, password) {
     // add implementation here
+    await $("#login").setValue(login);
+    await $("#password").setValue(password);
+    await $("button").click();
 });
