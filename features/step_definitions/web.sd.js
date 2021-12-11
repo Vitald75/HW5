@@ -19,7 +19,6 @@ When (/^I input login and password$/, async function (table) {
 
 When (/^I click the login button$/, async function () {
     await $("button").click();
-    await browser.pause(2000);
 });
 
 When(/^I check the texts of the elements:$/, async function (table) {
@@ -41,14 +40,27 @@ When(/^I expect element: "([^"]*)" (text|value): "([^"]*)"$/, async function (se
 
 When('I go to {string} menu item', async function (item) {
     // add implementation here
-    //await $("*=Create user").click()
-    await $("a[href='./formUser.html']").click()
+    //await $("*=Create User").click()
+    //await $("a[href='./formUser.html']").click()
+    await $(`//a[normalize-space()='${item}']`).click();
+    //a[normalize-space()='Create User']")
 });
 
-When(/^I fill form:$/, function (formYaml) {
+When(/^I fill form:$/, async function (formYaml) {
+    //await browser.pause(3000);
     const formData = YAML.parse(formYaml);
     console.log({ formData });
+    console.log(formData.City);
     // add implementation here
+    await $("#email").addValue(formData.email);
+    await $("#password").addValue(formData.password);
+    await $("#address1").addValue(formData.address1);
+    await $("#address2").addValue(formData.address2);
+    await $("#city").addValue(formData.city);
+    await $("#zip").addValue(formData.zip);
+    await $("#description").addValue(formData.description);
+    await $("button[type='submit']").click();
+    await browser.pause(3000);
 });
 
 When('I login as: {string}, {string}', async function (login, password) {
@@ -56,4 +68,18 @@ When('I login as: {string}, {string}', async function (login, password) {
     await $("#login").setValue(login);
     await $("#password").setValue(password);
     await $("button").click();
+//    await browser.pause(10000);
+});
+
+When ('I wait for spiner is disabled', async function() {
+    
+    await $("#spinner").waitForDisplayed({
+        timeout: 2000,
+      });
+
+    await $("#spinner").waitForDisplayed({
+        reverse: true,
+        timeout: 20000,
+      });
+  
 });
