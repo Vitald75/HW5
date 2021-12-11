@@ -65,7 +65,7 @@ When('I login as: {string}, {string}', async function (login, password) {
     await $("button").click();
 });
 
-When ('I wait for spiner is disabled', async function() {
+When ('I wait for the spiner is disabled', async function() {
     
     await $("#spinner").waitForDisplayed({
         timeout: 2000,

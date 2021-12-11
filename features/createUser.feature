@@ -3,7 +3,7 @@ Feature: User Creation
   Background:
     When I go to "https://viktor-silakov.github.io/course-sut/"
     When I login as: "walker@jw.com", "password"
-    When I wait for spiner is disabled 
+    When I wait for the spiner is disabled 
 
   Scenario: Create user
     When I go to "Create User" menu item

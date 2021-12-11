@@ -1,6 +1,6 @@
 Feature: Login page
 
-  Scenario: Login with credentials
+  Scenario: Login with invalid credentials
     When I go to "https://viktor-silakov.github.io/course-sut/index.html?quick"
     When I input login and password
       | login             | password      | message               |
