@@ -40,17 +40,12 @@ When(/^I expect element: "([^"]*)" (text|value): "([^"]*)"$/, async function (se
 
 When('I go to {string} menu item', async function (item) {
     // add implementation here
-    //await $("*=Create User").click()
-    //await $("a[href='./formUser.html']").click()
     await $(`//a[normalize-space()='${item}']`).click();
-    //a[normalize-space()='Create User']")
+    
 });
 
 When(/^I fill form:$/, async function (formYaml) {
-    //await browser.pause(3000);
     const formData = YAML.parse(formYaml);
-    console.log({ formData });
-    console.log(formData.City);
     // add implementation here
     await $("#email").addValue(formData.email);
     await $("#password").addValue(formData.password);
@@ -68,7 +63,6 @@ When('I login as: {string}, {string}', async function (login, password) {
     await $("#login").setValue(login);
     await $("#password").setValue(password);
     await $("button").click();
-//    await browser.pause(10000);
 });
 
 When ('I wait for spiner is disabled', async function() {
@@ -81,5 +75,13 @@ When ('I wait for spiner is disabled', async function() {
         reverse: true,
         timeout: 20000,
       });
-  
 });
+
+Then ('I expect to open form List of Users with correct users data', async function(formYaml) {
+   const formData = YAML.parse(formYaml);
+   await expect(await $("//div[text()='test@test.com']/following-sibling::div[@tabulator-field='address1']").getText()).toEqual(formData.address1);  
+   await expect(await $("//div[text()='test@test.com']/following-sibling::div[@tabulator-field='address2']").getText()).toEqual(formData.address2);
+   await expect(await $("//div[text()='test@test.com']/following-sibling::div[@tabulator-field='city']").getText()).toEqual(formData.city);  
+   await expect(await $("//div[text()='test@test.com']/following-sibling::div[@tabulator-field='zip']").getText()).toEqual(formData.zip.toString());  
+   await expect(await $("//div[text()='test@test.com']/following-sibling::div[@tabulator-field='description']").getText()).toEqual(formData.description);  
+})
